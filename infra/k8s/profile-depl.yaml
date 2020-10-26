@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profiles
+  template:
+    metadata:
+      labels:
+        app: profiles
+    spec:
+      containers:
+        - name: profiles
+          image: yeniere/profiles
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://profile-mongo-srv:27017/profiles'
+---       
+apiVersion: v1
+kind: Service
+metadata:
+  name: profiles-srv
+spec:
+  selector:
+    app: profiles
+  ports:
+    - name: profiles
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
