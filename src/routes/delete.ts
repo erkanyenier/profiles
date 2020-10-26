@@ -12,8 +12,6 @@ const router = express.Router();
 const actionType = ProfileActionTypes.DELETE_PROFILE;
 
 
-
-
 router.delete(
   '/api/profiles/delete/:uname',
   requirePermission(actionType),
